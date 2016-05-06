@@ -18,7 +18,7 @@ public class ServerThread extends Thread {
     public void run() {
         try {
             mServerSocket = new ServerSocket(SERVER_PORT);
-            System.out.println("Strart server");
+            System.out.println("Start server");
             while(!mBreaked) {
                 Socket socket = mServerSocket.accept();
                 ClientThread clientThread = new ClientThread(socket);

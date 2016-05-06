@@ -5,6 +5,8 @@ import workshop.common.Constants;
 import workshop.common.ISocketConnection;
 import workshop.common.Request;
 import workshop.common.SocketConnection;
+import workshop.server.managercontroller.IManagerController;
+import workshop.server.managercontroller.ManagerController;
 import workshop.server.usercontroller.IUserController;
 import workshop.server.usercontroller.UserController;
 
@@ -14,11 +16,13 @@ public class ClientThread extends Thread {
     private boolean mBreaked = false;
     
     private final IUserController mUserController;
+    private final IManagerController mManagerController;
     
-    public ClientThread(Socket socket) {
+    public ClientThread(final Socket socket) { 
         mClientSocket = socket;
         mSocketConnection = new SocketConnection();
         mUserController = new UserController();
+        mManagerController = new ManagerController();
     }
     
     @Override
@@ -42,6 +46,7 @@ public class ClientThread extends Thread {
                                 break;
                             }
                             case Constants.MANAGER: {
+                                mManagerController.processRequest(request, mSocketConnection);
                                 break;
                             }
                             case Constants.HEAD: {

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import workshop.common.Constants;
 
 public class DataAccess implements IDataAccess {
-    private static IDataAccess instance_ = new DataAccess();
+    private static final IDataAccess instance_ = new DataAccess(); 
     private Connection mConnection;
     private final Object mLock = new Object();
     private DataAccess() {
@@ -41,7 +41,7 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public boolean addUser(String username, String password) {
+    public boolean addUser(final String username, final String password) { 
         synchronized (mLock) {
             try {
                 String query = "select count(*) from users WHERE username='" + username + "';";
@@ -62,7 +62,7 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public boolean checkUser(String username, String password) {
+    public boolean checkUser(final String username, final String password) {
         synchronized (mLock) {
             try {
                 String query = "select count(*) from users WHERE username='" + username + "' AND "
@@ -100,7 +100,7 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public boolean makeOrder(String username, String description, String phone, String time) {
+    public boolean makeOrder(final String username, final String description, final String phone, final String time) {
         synchronized (mLock) {
             try {
                 String query = "select count(*) from orders WHERE time='" + time + "';";
@@ -128,7 +128,7 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public String getOrders(String username) {
+    public String getOrders(final String username) {
         synchronized (mLock) {
             try {
                 String result = "";               
@@ -150,6 +150,73 @@ public class DataAccess implements IDataAccess {
                 System.out.println(e.toString());
             }
             return null;
+        }
+    }
+	
+	@Override  
+    public boolean acceptOrder(final String username, final String time) {  
+        synchronized (mLock) {  
+            try {  
+                String query = "select id from users WHERE username='" + username + "';";  
+                Statement statement = mConnection.createStatement();  
+                ResultSet resultSet = statement.executeQuery(query);  
+                resultSet.next();                                
+                int uid = resultSet.getInt(1);  
+                query = "UPDATE orders SET status= '" +   
+                        Constants.STATUS_USER_AGREE + "' WHERE uid='" + uid + "' "  
+                        + "AND time='" + time + "';";  
+                statement.executeUpdate(query);  
+                return true;  
+            } catch (SQLException e) {  
+                System.out.println(e.toString());  
+            }  
+            return false;  
+        }  
+    }  
+  
+    @Override  
+    public boolean rejectOrder(final String username, final String time) {  
+            synchronized (mLock) {  
+            try {                 
+                String query = "select id from users WHERE username='" + username + "';";  
+                Statement statement = mConnection.createStatement();  
+                ResultSet resultSet = statement.executeQuery(query);  
+                resultSet.next();                                
+                int uid = resultSet.getInt(1);  
+                query = "UPDATE orders SET status= '" +   
+                        Constants.STATUS_USER_DENIED + "' WHERE uid='" + uid + "' "  
+                        + "AND time='" + time + "';";  
+                statement.executeUpdate(query);  
+                return true;  
+            } catch (SQLException e) {  
+                System.out.println(e.toString());  
+            }  
+            return false;  
+        }  
+    } 
+ 
+	@Override
+    public String getInfo(final String time) {
+        synchronized (mLock) {
+            try {
+                String query = "select * from orders WHERE time='" + time + "';";
+                Statement statement = mConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if(resultSet.next()) {
+                    String result = "";
+                    result += resultSet.getString(4) + ";" + resultSet.getString(5) + ";" + resultSet.getString(6) + ";" + resultSet.getString(7);
+                    query = "select username from users WHERE id='" + resultSet.getString(2) + "';";
+                    statement = mConnection.createStatement();
+                    resultSet = statement.executeQuery(query);
+                    resultSet.next();
+                    result = resultSet.getString(1) + ";" + result;
+                    return result;
+                }
+                else return "Nothing here";
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+            return "Test Info";
         }
     }
 }
