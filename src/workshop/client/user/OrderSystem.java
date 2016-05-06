@@ -7,7 +7,7 @@ import workshop.common.Request;
 class OrderSystem implements IOrderSystem {
     ISocketConnection mSocketConnection;
     
-    public OrderSystem(ISocketConnection socketConnection) {
+    public OrderSystem(final ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;
     }
 
@@ -26,7 +26,8 @@ class OrderSystem implements IOrderSystem {
     }
 
     @Override
-    public boolean makeOrder(String username, String description, String phone, String time) {
+    public boolean makeOrder(final String username, final String description, 
+            final String phone, final String time) {
         Request request = new Request();
         request.senderType = Constants.USER;
         request.requestType = Constants.MAKE_ORDER;
@@ -39,7 +40,7 @@ class OrderSystem implements IOrderSystem {
     }
 
     @Override
-    public String[] getOrders(String username) {
+    public String[] getOrders(final String username) {
         Request request = new Request();
         request.senderType = Constants.USER;
         request.requestType = Constants.GET_ORDERS;
@@ -50,5 +51,31 @@ class OrderSystem implements IOrderSystem {
             return null;
         }
         return response.body.split(";");
+    }
+
+    @Override
+    public boolean acceptOrder(final String username, final String time) {
+        Request request = new Request();
+        request.senderType = Constants.USER;
+        request.requestType = Constants.ACCEPT_ORDER;
+        request.body = username + "=" + time;
+        Request response = mSocketConnection.sendAndGetResponse(request);
+
+        return response.senderType.equals(Constants.SERVER) &&
+                response.requestType.equals(Constants.ACCEPT_ORDER) &&
+                response.body.equals(Constants.SUCCESS);
+    }
+
+    @Override
+    public boolean rejectOrder(final String username, final String time) {
+        Request request = new Request();
+        request.senderType = Constants.USER;
+        request.requestType = Constants.REJECT_ORDER;
+        request.body = username + "=" + time;
+        Request response = mSocketConnection.sendAndGetResponse(request);
+
+        return response.senderType.equals(Constants.SERVER) &&
+                response.requestType.equals(Constants.REJECT_ORDER) &&
+                response.body.equals(Constants.SUCCESS);
     }
 }

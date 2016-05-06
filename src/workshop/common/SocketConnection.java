@@ -18,7 +18,7 @@ public class SocketConnection implements ISocketConnection{
 
     @Override
     public boolean connect(final String ip, final int port) { 
-        try {
+		try {
             mConnected = false;
             InetAddress ipAddress = InetAddress.getByName(ip);            
             mSocket = new Socket(ipAddress, port);    
@@ -34,7 +34,7 @@ public class SocketConnection implements ISocketConnection{
     
     @Override
     public boolean connect(final Socket socket) { 
-        try {
+		try {
             mConnected = false;           
             mSocket = socket;         
             mInputStream = new ObjectInputStream(mSocket.getInputStream());
@@ -56,7 +56,7 @@ public class SocketConnection implements ISocketConnection{
     }
     
     private void close(final Closeable closeable) { 
-        if (closeable != null) {
+		if (closeable != null) {
             try {
                 closeable.close();
             } catch (IOException e) {
@@ -67,7 +67,7 @@ public class SocketConnection implements ISocketConnection{
 
     @Override
     public Request sendAndGetResponse(final Request request) { 
-        Request response = new Request();
+		Request response = new Request();
         response.senderType = Constants.SERVER;
         response.requestType = Constants.RESPONSE;
         response.body = Constants.FAIL;
@@ -85,7 +85,7 @@ public class SocketConnection implements ISocketConnection{
 
     @Override
     public boolean send(final Request request) { 
-       if (mConnected) {
+		if (mConnected) {
             try {
                 mOutputStream.writeObject(request);
                 return true;

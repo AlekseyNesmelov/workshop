@@ -42,15 +42,16 @@ public interface IDataAccess {
      * @param time is time from shedule.
      * @return true if order was made successfully. 
      */
-    public boolean makeOrder(final String username, final String description, final String phone, final String time);
-    
+	 public boolean makeOrder(final String username, final String description, 
+            final String phone, final String time);
+			
     /**
      * Gets orders of current user.
      * @param username is user's name.
      * @return string of orders, separated by ";".
      */
     public String getOrders(final String username);
-
+	
     /**  
      * Sets status to order as accepted.  
      * @param username is name of user.  

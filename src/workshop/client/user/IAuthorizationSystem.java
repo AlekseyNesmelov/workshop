@@ -7,5 +7,5 @@ public interface IAuthorizationSystem {
      * @param password is user's password.
      * @return true if authorization was successfully completed.
      */
-    public boolean authorization(String username, String password);
+    public boolean authorization(final String username, String password);
 }

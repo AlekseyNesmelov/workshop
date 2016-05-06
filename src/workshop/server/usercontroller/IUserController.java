@@ -10,7 +10,7 @@ public interface IUserController {
      * @param request is input request.
      * @param socketConection is socket connection with the client.
      */
-    public void processRequest(Request request, ISocketConnection socketConection);
+    public void processRequest(final Request request, final ISocketConnection socketConection);
     
     /**
      * Registration of user with current login and password.
@@ -18,7 +18,7 @@ public interface IUserController {
      * @param password is user's password.
      * @param socketConnection is socket connection with user.
      */
-    public void registration(String username, String password,
+    public void registration(final String username, final String password,
             ISocketConnection socketConnection);
     
     /**
@@ -27,14 +27,14 @@ public interface IUserController {
      * @param password is user's password.
      * @param socketConnection is socket connection with user.
      */
-    public void authorization(String username, String password,
+    public void authorization(final String username, final String password,
             ISocketConnection socketConnection);
     
     /**
      * Gets shedule.
      * @param socketConnection is socket connection with user.
      */
-    public void getShedule(ISocketConnection socketConnection);
+    public void getShedule(final ISocketConnection socketConnection);
     
     /**
      * Makes order.
@@ -44,7 +44,8 @@ public interface IUserController {
      * @param time is time from shedule.
      * @param socketConnection is socket connection with the client.
      */
-    public void makeOrder(String username, String description, String phone, String time,
+    public void makeOrder(final String username, final String description, 
+            final String phone, final String time,
             ISocketConnection socketConnection);
     
     /**
@@ -52,5 +53,23 @@ public interface IUserController {
      * @param username is user's name.
      * @param socketConnection is socket connection with the client.
      */
-    public void getOrders(String username, ISocketConnection socketConnection);
+    public void getOrders(final String username, final ISocketConnection socketConnection);
+    
+    /**
+     * Sets status to order as accepted.
+     * @param username is name of user.
+     * @param time is time from shedule.
+     * @param socketConnection is socket connection with the client.
+     */
+    public void acceptOrder(final String username, final String time, 
+            final ISocketConnection socketConnection);
+    
+    /**
+     * Sets status to order as rejected.
+     * @param username is name of user.
+     * @param time is time from shedule.
+     * @param socketConnection is socket connection with the client.
+     */
+    public void rejectOrder(final String username, final String time,
+             final ISocketConnection socketConnection);
 }

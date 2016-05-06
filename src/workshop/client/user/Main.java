@@ -10,9 +10,9 @@ public class Main {
     private static final int PORT = 8888;
     
     public static void main(String[] args) {
-        ISocketConnection socketConnection = new SocketConnection();
+        final ISocketConnection socketConnection = new SocketConnection();
         if (socketConnection.connect(IP, PORT)) {
-            IController controller = new Controller(socketConnection);
+            final IController controller = new Controller(socketConnection);
             IGUI userGUI = new UserGUI(controller);
             userGUI.show();
         } else {

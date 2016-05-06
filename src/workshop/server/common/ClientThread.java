@@ -19,7 +19,7 @@ public class ClientThread extends Thread {
     private final IManagerController mManagerController;
     
     public ClientThread(final Socket socket) { 
-        mClientSocket = socket;
+		mClientSocket = socket;
         mSocketConnection = new SocketConnection();
         mUserController = new UserController();
         mManagerController = new ManagerController();

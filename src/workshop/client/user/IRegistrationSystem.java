@@ -7,7 +7,7 @@ public interface IRegistrationSystem {
      * @param username is input username.
      * @return true if login exists.
      */
-    public boolean checkUsername(String username);
+    public boolean checkUsername(final String username);
     
     /**
      * Registration of user with current login and password.
@@ -16,5 +16,5 @@ public interface IRegistrationSystem {
      * @return true if registration was successfully completed.
      * Returns false if user with current login exists.
      */
-    public boolean registration(String username, String password);
+    public boolean registration(final String username, final String password);
 }

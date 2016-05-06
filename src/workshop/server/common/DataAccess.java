@@ -42,7 +42,7 @@ public class DataAccess implements IDataAccess {
 
     @Override
     public boolean addUser(final String username, final String password) { 
-        synchronized (mLock) {
+	synchronized (mLock) {
             try {
                 String query = "select count(*) from users WHERE username='" + username + "';";
                 Statement statement = mConnection.createStatement();
@@ -100,8 +100,9 @@ public class DataAccess implements IDataAccess {
     }
 
     @Override
-    public boolean makeOrder(final String username, final String description, final String phone, final String time) {
-        synchronized (mLock) {
+    public boolean makeOrder(final String username, final String description, 
+            final String phone, final String time) {
+		synchronized (mLock) {
             try {
                 String query = "select count(*) from orders WHERE time='" + time + "';";
                 Statement statement = mConnection.createStatement();

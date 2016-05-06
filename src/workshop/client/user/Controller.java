@@ -8,7 +8,7 @@ public class Controller implements IController {
     private final IAuthorizationSystem mAuthorizationSystem;
     private final IOrderSystem mOrderSystem;
 
-    public Controller(ISocketConnection socketConnection) {
+    public Controller(final ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;
         mRegistrationSystem = new RegistrationSystem(mSocketConnection);
         mAuthorizationSystem = new AuthorizationSystem(mSocketConnection);
@@ -16,12 +16,12 @@ public class Controller implements IController {
     }
 
     @Override
-    public boolean registration(String username, String password) {
+    public boolean registration(final String username, final String password) {
         return mRegistrationSystem.registration(username, password);
     }
 
     @Override
-    public boolean authorization(String username, String password) {
+    public boolean authorization(final String username, final String password) {
         return mAuthorizationSystem.authorization(username, password);
     } 
 
@@ -31,12 +31,23 @@ public class Controller implements IController {
     }
 
     @Override
-    public boolean makeOrder(String username, String description, String phone, String time) {
+    public boolean makeOrder(final String username, final String description, 
+            final String phone, final String time) {
         return mOrderSystem.makeOrder(username, description, phone, time);
     }
 
     @Override
-    public String[] getOrders(String username) {
+    public String[] getOrders(final String username) {
         return mOrderSystem.getOrders(username);
+    }
+
+    @Override
+    public boolean acceptOrder(final String username, final String time) {
+        return mOrderSystem.acceptOrder(username, time);
+    }
+
+    @Override
+    public boolean rejectOrder(final String username, final String time) {
+        return mOrderSystem.rejectOrder(username, time);
     }
 }
