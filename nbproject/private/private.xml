@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/client/common/IGUI.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/server/common/IDataAccess.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/server/common/DataAccess.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/server/common/Main.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/common/Request.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/server/usercontroller/IUserController.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/common/ISocketConnection.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/client/user/Controller.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/client/user/IController.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/common/SocketConnection.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/server/common/ClientThread.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/common/Constants.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/client/user/UserGUI.java</file>
+            <file>file:/C:/My%20Documents/NetBeansProjects/Workshop/src/workshop/server/common/ServerThread.java</file>
+        </group>
+    </open-files>
+</project-private>
