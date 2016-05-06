@@ -9,14 +9,14 @@ public interface ISocketConnection {
      * @param port is server port.
      * @return true if connection was successfully completed.
      */
-    public boolean connect(String ip, int port);
+    public boolean connect(final String ip, final int port);
     
     /**
      * Connects to server by socket.
      * @param socket is socket to connect.
      * @return true if connection was successfully completed.
      */
-    public boolean connect(Socket socket);
+    public boolean connect(final Socket socket);
 
     /**
      * Disconnects from server.
@@ -28,14 +28,14 @@ public interface ISocketConnection {
      * @param request is request to send.
      * @return server response.
      */
-    public Request sendAndGetResponse(Request request);
+    public Request sendAndGetResponse(final Request request);
     
     /**
      * Sends request.
      * @param request is request to send.
      * @return true if sending was successfully completed.
      */
-    public boolean send(Request request);
+    public boolean send(final Request request);
     
     /**
      * Gets response.

@@ -18,7 +18,7 @@ public interface IDataAccess {
      * @param password is password of user.
      * @return true if user was successfully added.
      */
-    public boolean addUser(String username, String password);
+    public boolean addUser(final String username, final String password);
     
     /**
      * Checks is user exists in database.
@@ -26,7 +26,7 @@ public interface IDataAccess {
      * @param password is password of user.
      * @return true if user exists.
      */
-    public boolean checkUser(String username, String password);
+    public boolean checkUser(final String username, final String password);
     
     /**
      * Gets shedule from database.
@@ -42,12 +42,30 @@ public interface IDataAccess {
      * @param time is time from shedule.
      * @return true if order was made successfully. 
      */
-    public boolean makeOrder(String username, String description, String phone, String time);
+    public boolean makeOrder(final String username, final String description, 
+            final String phone, final String time);
     
     /**
      * Gets orders of current user.
      * @param username is user's name.
      * @return string of orders, separated by ";".
      */
-    public String getOrders(String username);
+    public String getOrders(final String username);
+    
+    /**
+     * Sets status to order as accepted.
+     * @param username is name of user.
+     * @param time is time from shedule.
+     * @return true if operation was made successfully. 
+     */
+    public boolean acceptOrder(final String username, final String time);
+    
+    /**
+     * Sets status to order as rejected.
+     * @param username is name of user.
+     * @param time is time from shedule.
+     * @return true if operation was made successfully. 
+     */
+    public boolean rejectOrder(final String username, final String time);
+    
 }

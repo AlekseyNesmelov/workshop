@@ -8,12 +8,12 @@ public class RegistrationSystem implements IRegistrationSystem{
     
     ISocketConnection mSocketConnection;
     
-    public RegistrationSystem(ISocketConnection socketConnection) {
+    public RegistrationSystem(final ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;
     }
 
     @Override
-    public boolean checkUsername(String username) {
+    public boolean checkUsername(final String username) {
         Request request = new Request();
         request.senderType = Constants.USER;
         request.requestType = Constants.CHECK_USERNAME;
@@ -26,7 +26,7 @@ public class RegistrationSystem implements IRegistrationSystem{
     }
 
     @Override
-    public boolean registration(String username, String password) {
+    public boolean registration(final String username, final String password) {
         Request request = new Request();
         request.senderType = Constants.USER;
         request.requestType = Constants.REGISTRATION;

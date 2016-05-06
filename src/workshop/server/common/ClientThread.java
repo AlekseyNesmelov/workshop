@@ -15,7 +15,7 @@ public class ClientThread extends Thread {
     
     private final IUserController mUserController;
     
-    public ClientThread(Socket socket) {
+    public ClientThread(final Socket socket) {
         mClientSocket = socket;
         mSocketConnection = new SocketConnection();
         mUserController = new UserController();

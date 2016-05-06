@@ -8,7 +8,7 @@ public interface IController {
      * @return true if registration was successfully completed.
      * Returns false if user with current login exists.
      */
-    public boolean registration(String username, String password);
+    public boolean registration(final String username, final String password);
     
     /**
      * Authorization of user with current login and password.
@@ -16,7 +16,7 @@ public interface IController {
      * @param password is user's password.
      * @return true if authorization was successfully completed.
      */
-    public boolean authorization(String username, String password);
+    public boolean authorization(final String username, final String password);
     
     /**
      * Gets shedule.
@@ -32,12 +32,29 @@ public interface IController {
      * @param time is time from shedule.
      * @return true if order was made successfully. 
      */
-    public boolean makeOrder(String username, String description, String phone, String time);
+    public boolean makeOrder(final String username, final String description, 
+            final String phone, final String time);
     
     /**
      * Gets orders of current user.
      * @param username is user's name.
      * @return array of orders.
      */
-    public String[] getOrders(String username);
+    public String[] getOrders(final String username);
+    
+    /**
+     * Sets status to order as accepted.
+     * @param username is name of user.
+     * @param time is time from shedule.
+     * @return true if operation was made successfully. 
+     */
+    public boolean acceptOrder(final String username, final String time);
+    
+    /**
+     * Sets status to order as rejected.
+     * @param username is name of user.
+     * @param time is time from shedule.
+     * @return true if operation was made successfully. 
+     */
+    public boolean rejectOrder(final String username, final String time);
 }

@@ -13,6 +13,8 @@ public class Constants {
     public static final String GET_SHEDULE = "get shedule";
     public static final String MAKE_ORDER = "order";
     public static final String GET_ORDERS = "get orders";
+    public static final String ACCEPT_ORDER = "accept order";
+    public static final String REJECT_ORDER = "reject order";
     
     public static final String FAIL = "fail";
     public static final String SUCCESS = "success";

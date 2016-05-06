@@ -79,7 +79,7 @@ public class UserGUI implements IGUI {
     private String mUserName = null;
     private final LinkedList<Pair> mDescriptions = new LinkedList();
     
-    public UserGUI(IController controller) {
+    public UserGUI(final IController controller) {
         mController = controller;
 
         mFrame = new JFrame(TITLE);
@@ -174,9 +174,13 @@ public class UserGUI implements IGUI {
                 int row = mOrderTable.rowAtPoint(e.getPoint());
                 if (!mDescriptions.get(row).first.equals("null")) {
                     mOrderDescription.setText(mDescriptions.get(row).first);
+                } else {
+                    mOrderDescription.setText("");
                 }
                 if (!mDescriptions.get(row).second.equals("null")) {
                     mStatusDescription.setText(mDescriptions.get(row).second);
+                } else {
+                    mStatusDescription.setText("");
                 }
                 if (mOrderTable.getValueAt(row, 2).equals(Constants.STATUS_NEED_FOR_DETAILS) ||
                         mOrderTable.getValueAt(row, 2).equals(Constants.STATUS_USER_AGREE) ||
@@ -366,6 +370,8 @@ public class UserGUI implements IGUI {
                                 "Can't get orders!");
         } else {
             mDescriptions.clear();
+            mStatusDescription.setText("");
+            mOrderDescription.setText("");
             int size = orders.length;
             for (int i = 0; i < size; i++) {
                 String[] splited = orders[i].split("=");
@@ -525,9 +531,21 @@ public class UserGUI implements IGUI {
             } else if (e.getSource() == mBackButton) {
                 showAuthorizationScreen();
             } else if (e.getSource() == mOrderAcceptButton) {
-                
+                if (mOrderTable.getSelectedRow() >= 0 && mController.acceptOrder(mUserName, 
+                        mOrderTable.getModel().getValueAt(mOrderTable.getSelectedRow(), 0).toString())) {
+                    fillOrderTable();
+                } else {
+                    JOptionPane.showMessageDialog(mFrame,
+                                        "Please, select the order!");
+                }
             } else if (e.getSource() == mOrderRejectButton) {
-                
+                if (mOrderTable.getSelectedRow() >= 0 && mController.rejectOrder(mUserName, 
+                        mOrderTable.getModel().getValueAt(mOrderTable.getSelectedRow(), 0).toString())) {
+                    fillOrderTable();
+                } else {
+                    JOptionPane.showMessageDialog(mFrame,
+                                        "Please, select the order!");
+                }
             }
         }
     }

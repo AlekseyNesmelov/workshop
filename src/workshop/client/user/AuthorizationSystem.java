@@ -7,12 +7,12 @@ import workshop.common.Request;
 public class AuthorizationSystem implements IAuthorizationSystem{
     ISocketConnection mSocketConnection;
 
-    public AuthorizationSystem(ISocketConnection socketConnection) {
+    public AuthorizationSystem(final ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;
     }
 
     @Override
-    public boolean authorization(String username, String password) {
+    public boolean authorization(final String username, final String password) {
         Request request = new Request();
         request.senderType = Constants.USER;
         request.requestType = Constants.AUTHORIZATION;
