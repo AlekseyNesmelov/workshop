@@ -28,7 +28,7 @@ public class ManagerGUI implements IGUI {
     private static final String EDIT_ORDER = "Edit order";
     private static final String REFRESH = "Refresh";
     
-    private final JFrame mFrame;
+    public final JFrame mFrame;
     private final JButton mRefreshButton;
     private final JButton mEditButton;
     private final JTable mSheduleTable;
@@ -50,11 +50,11 @@ public class ManagerGUI implements IGUI {
         mClickListener = new ClickListener();
 
         mEditButton = new JButton(EDIT_ORDER);
-        mEditButton.setBounds(50, 200, 150, 50);
+        mEditButton.setBounds(50, 200, 200, 30);
         mEditButton.addActionListener(mClickListener);
 
         mRefreshButton = new JButton(REFRESH);
-        mRefreshButton.setBounds(250, 200, 100, 50);
+        mRefreshButton.setBounds(250, 200, 200, 30);
         mRefreshButton.addActionListener(mClickListener);
 
         mSheduleTable = new JTable();

@@ -123,9 +123,9 @@ public class DataAccess implements IDataAccess {
                         Constants.STATUS_WAIT_FOR_CAR + "', '" + phone + "');";
                 statement.executeUpdate(query);
                 StringBuilder sb = new StringBuilder();
-                sb.append("New order was made by ").append(username).append(".\n")
-                        .append("Time: ").append(time).append("\n")
-                        .append("Phone: ").append(phone).append("\n")
+                sb.append("New order was made by ").append(username).append(".")
+                        .append("Time: ").append(time).append(".")
+                        .append("Phone: ").append(phone).append(".")
                         .append("Description: ").append(description);
                 mLogger.log(sb.toString());
                 return true;
@@ -176,7 +176,7 @@ public class DataAccess implements IDataAccess {
                         + "AND time='" + time + "';";  
                 statement.executeUpdate(query);
                 StringBuilder sb = new StringBuilder();
-                sb.append("User ").append(username).append(" accepted agreement.\n")
+                sb.append("User ").append(username).append(" accepted agreement.")
                         .append("Time of order: ").append(time).append(".");
                 mLogger.log(sb.toString());
                 return true;  
@@ -201,7 +201,7 @@ public class DataAccess implements IDataAccess {
                         + "AND time='" + time + "';";  
                 statement.executeUpdate(query);
                 StringBuilder sb = new StringBuilder();
-                sb.append("User ").append(username).append(" rejected agreement.\n")
+                sb.append("User ").append(username).append(" rejected agreement.")
                     .append("Time of order: ").append(time).append(".");
                 mLogger.log(sb.toString());
                 return true;  
@@ -212,7 +212,7 @@ public class DataAccess implements IDataAccess {
         }  
     } 
  
-	@Override
+    @Override
     public String getInfo(final String time) {
         synchronized (mLock) {
             try {

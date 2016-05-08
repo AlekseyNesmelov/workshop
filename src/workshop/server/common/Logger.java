@@ -26,7 +26,7 @@ public class Logger implements ILogger {
 
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(fileName));
+            writer = new BufferedWriter(new FileWriter(fileName, true));
         } catch (IOException e) {
             System.out.println(e.toString());
         }
