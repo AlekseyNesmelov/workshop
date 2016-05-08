@@ -1,4 +1,4 @@
-package workshop.client.manager;
+package workshop.common;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -24,9 +24,11 @@ public class SheduleTableRenderer extends DefaultTableCellRenderer {
             return this;
         }
         if(Arrays.asList(filledCells).contains(new Point(row, column)))
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column).setBackground(Color.red);
+            super.getTableCellRendererComponent(table, value, isSelected, 
+                    hasFocus, row, column).setBackground(Color.red);
         else
-            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column).setBackground(Color.white);
+            super.getTableCellRendererComponent(table, value, isSelected, 
+                    hasFocus, row, column).setBackground(Color.white);
         return this;
     }
 }

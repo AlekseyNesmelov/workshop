@@ -1,11 +1,13 @@
 package workshop.client.user;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import workshop.client.common.IGUI;
 import workshop.common.Constants;
+import workshop.common.SheduleTableRenderer;
 
 public class UserGUI implements IGUI {
     private static final int WIDTH = 500;
@@ -77,6 +80,7 @@ public class UserGUI implements IGUI {
     private final IController mController;
     
     private String mUserName = null;
+    private Point[] mBusyTimes = null;
     private final LinkedList<Pair> mDescriptions = new LinkedList();
     
     public UserGUI(final IController controller) {
@@ -334,6 +338,7 @@ public class UserGUI implements IGUI {
                                 "Can't get shedule!");
         } else {
             int size = shedule.length;
+            mBusyTimes = new Point[size];
             for (int i = 0; i < size; i++) {
                 String[] splited = shedule[i].split("-");
                 if (splited.length == 2) {
@@ -343,13 +348,18 @@ public class UserGUI implements IGUI {
                     if (colIndex != -1) {
                         int rowIndex = getRowIndex(time);
                         if (rowIndex != -1) {
-                            mSheduleTable.getModel().setValueAt("X-" + time + "-X",
-                                    rowIndex, colIndex);
+                            mBusyTimes[i] = new Point(rowIndex, colIndex);
                         }
                     }
                 }
             }
+            setTableRenderer(size, mBusyTimes);
         }
+    }
+    
+    private void setTableRenderer(int size, Point[] filledCells) {
+        mSheduleTable.setDefaultRenderer(mSheduleTable.getColumnClass(0), 
+                new SheduleTableRenderer(size, filledCells));
     }
     
     public void fillOrderTable() {
@@ -358,7 +368,7 @@ public class UserGUI implements IGUI {
         columns[0] = "Time";
         columns[1] = "Phone";
         columns[2] = "Status";
-
+        
         TableModel tableModel = new DefaultTableModel(columns, 0);
         mOrderTable.setModel(tableModel);
         DefaultTableModel model = (DefaultTableModel) mOrderTable.getModel();
@@ -498,7 +508,9 @@ public class UserGUI implements IGUI {
                         if (selectedRow != -1 && selectedCol != -1) {
                             String time = (String)mSheduleTable.getModel()
                                     .getValueAt(selectedRow, selectedCol);
-                            if (!time.startsWith("X-")) {
+                            if (mBusyTimes != null &&
+                                    !Arrays.asList(mBusyTimes).contains(
+                                            new Point(selectedRow, selectedCol))) {
                                 if (mUserName != null && 
                                         mController.makeOrder(mUserName, mDescription.getText(),
                                                 mPhone.getText(), time + "-" +

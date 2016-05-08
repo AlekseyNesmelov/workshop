@@ -1,8 +1,6 @@
 package workshop.client.manager;
 
-import com.mysql.jdbc.StringUtils;
-import java.awt.Color;
-import java.awt.Component;
+import workshop.common.SheduleTableRenderer;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,12 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 import workshop.client.common.IGUI;
 
@@ -44,8 +38,6 @@ public class ManagerGUI implements IGUI {
     private final ClickListener mClickListener;
 
     private final IController mController;
-
-    private String mUserName = null;
 
     public ManagerGUI(IController controller) {
         mController = controller;
@@ -167,7 +159,7 @@ public class ManagerGUI implements IGUI {
                     String day = splited[1];
                     int colIndex = getColumnIndex(mSheduleTable, day);
                     if (colIndex != -1) {
-                        int rowIndex = getRowIndex(mSheduleTable, time);
+                        int rowIndex = getRowIndex(time);
                         if (rowIndex != -1) {
                             filledCells[i] = new Point(rowIndex, colIndex);
                         }
@@ -191,7 +183,7 @@ public class ManagerGUI implements IGUI {
         return -1;
     }
 
-    private int getRowIndex(JTable table, String header) {
+    private int getRowIndex(String header) {
         switch (header) {
             case "10:00": {
                 return 0;
