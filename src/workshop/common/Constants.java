@@ -13,8 +13,12 @@ public class Constants {
     public static final String GET_SHEDULE = "get shedule";
     public static final String MAKE_ORDER = "order";
     public static final String GET_ORDERS = "get orders";
-	public static final String ACCEPT_ORDER = "accept order"; 
-	public static final String REJECT_ORDER = "reject order"; 
+    public static final String ACCEPT_ORDER = "accept order"; 
+    public static final String REJECT_ORDER = "reject order"; 
+    public static final String GET_INFO = "get info";
+    public static final String GET_LOG = "get log"; 
+    public static final String CLEAR_LOG = "clear log";
+    
     
     public static final String FAIL = "fail";
     public static final String SUCCESS = "success";
@@ -26,5 +30,4 @@ public class Constants {
     public static final String STATUS_USER_DENIED = "denied";
     public static final String STATUS_USER_AGREE = "agree";
     public static final String STATUS_REPAIRS_COMPLETED = "repairs completed";
-    public static final String GET_INFO = "get info";
 }

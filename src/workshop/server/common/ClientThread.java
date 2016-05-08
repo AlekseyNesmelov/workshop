@@ -5,6 +5,8 @@ import workshop.common.Constants;
 import workshop.common.ISocketConnection;
 import workshop.common.Request;
 import workshop.common.SocketConnection;
+import workshop.server.headcontroller.HeadController;
+import workshop.server.headcontroller.IHeadController;
 import workshop.server.managercontroller.IManagerController;
 import workshop.server.managercontroller.ManagerController;
 import workshop.server.usercontroller.IUserController;
@@ -17,12 +19,14 @@ public class ClientThread extends Thread {
     
     private final IUserController mUserController;
     private final IManagerController mManagerController;
+    private final IHeadController mHeadController;
     
     public ClientThread(final Socket socket) { 
 		mClientSocket = socket;
         mSocketConnection = new SocketConnection();
         mUserController = new UserController();
         mManagerController = new ManagerController();
+        mHeadController = new HeadController();
     }
     
     @Override

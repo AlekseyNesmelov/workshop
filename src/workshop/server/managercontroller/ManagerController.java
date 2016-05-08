@@ -27,7 +27,7 @@ public class ManagerController implements IManagerController {
         }
     }   
     
-    private void sendFail(ISocketConnection socketConnection) {
+    public void sendFail(ISocketConnection socketConnection) {
         Request response = new Request();
         response.senderType = Constants.SERVER;
         response.requestType = Constants.RESPONSE;

@@ -10,6 +10,7 @@ import workshop.common.Constants;
 public class DataAccess implements IDataAccess {
     private static final IDataAccess instance_ = new DataAccess(); 
     private Connection mConnection;
+    private final ILogger mLogger = Logger.getInstance();
     private final Object mLock = new Object();
     private DataAccess() {
     }
@@ -52,6 +53,7 @@ public class DataAccess implements IDataAccess {
                     query = "INSERT INTO users (username, password) \n" +
                    " VALUES ('" + username + "', '" + password + "');";
                     statement.executeUpdate(query);
+                    mLogger.log("New user was added: " + username);
                     return true;
                 }
             } catch (SQLException e) {
@@ -120,6 +122,12 @@ public class DataAccess implements IDataAccess {
                    " VALUES ('" + uid + "', '" + time + "', '" + description + "', '" + 
                         Constants.STATUS_WAIT_FOR_CAR + "', '" + phone + "');";
                 statement.executeUpdate(query);
+                StringBuilder sb = new StringBuilder();
+                sb.append("New order was made by ").append(username).append(".\n")
+                        .append("Time: ").append(time).append("\n")
+                        .append("Phone: ").append(phone).append("\n")
+                        .append("Description: ").append(description);
+                mLogger.log(sb.toString());
                 return true;
             } catch (SQLException e) {
                 System.out.println(e.toString());
@@ -166,7 +174,11 @@ public class DataAccess implements IDataAccess {
                 query = "UPDATE orders SET status= '" +   
                         Constants.STATUS_USER_AGREE + "' WHERE uid='" + uid + "' "  
                         + "AND time='" + time + "';";  
-                statement.executeUpdate(query);  
+                statement.executeUpdate(query);
+                StringBuilder sb = new StringBuilder();
+                sb.append("User ").append(username).append(" accepted agreement.\n")
+                        .append("Time of order: ").append(time).append(".");
+                mLogger.log(sb.toString());
                 return true;  
             } catch (SQLException e) {  
                 System.out.println(e.toString());  
@@ -187,7 +199,11 @@ public class DataAccess implements IDataAccess {
                 query = "UPDATE orders SET status= '" +   
                         Constants.STATUS_USER_DENIED + "' WHERE uid='" + uid + "' "  
                         + "AND time='" + time + "';";  
-                statement.executeUpdate(query);  
+                statement.executeUpdate(query);
+                StringBuilder sb = new StringBuilder();
+                sb.append("User ").append(username).append(" rejected agreement.\n")
+                    .append("Time of order: ").append(time).append(".");
+                mLogger.log(sb.toString());
                 return true;  
             } catch (SQLException e) {  
                 System.out.println(e.toString());  
