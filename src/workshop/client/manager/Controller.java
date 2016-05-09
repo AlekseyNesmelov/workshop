@@ -6,7 +6,7 @@ import workshop.common.Request;
 
 public class Controller implements IController {
 
-    private final ISocketConnection mSocketConnection;
+    public final ISocketConnection mSocketConnection;
 
     public Controller(ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;

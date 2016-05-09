@@ -19,7 +19,7 @@ public class ClientThread extends Thread {
     
     private final IUserController mUserController;
     private final IManagerController mManagerController;
-    private final IHeadController mHeadController;
+    private final HeadController mHeadController;
     
     public ClientThread(final Socket socket) { 
 		mClientSocket = socket;
@@ -54,6 +54,7 @@ public class ClientThread extends Thread {
                                 break;
                             }
                             case Constants.HEAD: {
+                                mHeadController.processRequest(request, mSocketConnection);
                                 break;
                             }
                         }

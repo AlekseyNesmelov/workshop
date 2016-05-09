@@ -3,8 +3,8 @@ package workshop.client.head;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import workshop.client.manager.IController;
 import workshop.client.manager.ManagerGUI;
 
 public class HeadGUI extends ManagerGUI {
@@ -13,20 +13,31 @@ public class HeadGUI extends ManagerGUI {
 
     private final JButton mShowLogButton;
     private final JTextArea mLogArea;
+    final JScrollPane mScroll;
     private final ClickListener mClickListener = new ClickListener();
-    public HeadGUI(IController controller) {
+    
+    private final HController mHController;
+    
+    public HeadGUI(HController controller) {
         super(controller);
+        mHController = controller;
+        
         mShowLogButton = new JButton(SHOW_LOG_TITLE);
-        mShowLogButton.setBounds(50, 250, 200, 30);
+        mShowLogButton.setBounds(470, 50, 200, 30);
         mShowLogButton.addActionListener(mClickListener);
         
         mLogArea = new JTextArea();
-        mLogArea.setBounds(50, 285, 400, 150);
+        mLogArea.setBounds(470, 85, 400, 150);
+        
+        mScroll = new JScrollPane(mLogArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        mScroll.setBounds(470, 85, 400, 150);
     }
     private class ClickListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == mShowLogButton) {
+                mLogArea.setText(mHController.getLog());
             }
         }
     }
@@ -35,11 +46,13 @@ public class HeadGUI extends ManagerGUI {
     public void show() {
         super.show();
         mFrame.setTitle(TITLE);
+        mFrame.setSize(1000, 500);
         showLogScreeen();
     }
     
     public void showLogScreeen() {
         mFrame.add(mShowLogButton);
-        mFrame.add(mLogArea);
+       // mFrame.add(mLogArea);
+        mFrame.add(mScroll);
     }
 }

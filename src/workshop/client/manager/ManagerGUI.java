@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -208,8 +207,8 @@ public class ManagerGUI implements IGUI {
         DefaultTableModel model = (DefaultTableModel) mSheduleTable.getModel();
         int hour = 10;
         for (int i = 0; i < 12; i++) {
-            Object[] row = new Object[30];
-            for (int j = 0; j < 30; j++) {
+            Object[] row = new Object[40];
+            for (int j = 0; j < 40; j++) {
                 row[j] = hour + ":00";
             }
             hour++;

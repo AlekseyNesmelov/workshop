@@ -248,9 +248,15 @@ public class DataAccess implements IDataAccess {
                     query = "UPDATE orders SET status='" + status + "', statusdescription='" + statusDescription + "' WHERE time='" + time + "';";
                     statement = mConnection.createStatement();
                     statement.executeUpdate(query);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Order status was changed.")
+                        .append("Time of order: ").append(time).append(". ")
+                            .append("Status description: ").append(statusDescription);
+                    mLogger.log(sb.toString());
                     return "Status has been changed";
+                } else {
+                    return "No record this time";
                 }
-                else return "No record this time";
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
@@ -269,9 +275,14 @@ public class DataAccess implements IDataAccess {
                     query = "delete from orders WHERE time='" + time + "';";
                     statement = mConnection.createStatement();
                     statement.executeUpdate(query);
+                    StringBuilder sb = new StringBuilder();
+                    sb.append("Order was deleted.")
+                        .append("Time of order: ").append(time).append(". ");
+                    mLogger.log(sb.toString());
                     return "Record was deleted";
+                } else {
+                    return "No record this time";
                 }
-                else return "No record this time";
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
@@ -294,6 +305,10 @@ public class DataAccess implements IDataAccess {
                         query = "UPDATE orders SET time='" + newTime + "' WHERE time='" + oldTime + "';";
                         statement = mConnection.createStatement();
                         statement.executeUpdate(query);
+                        StringBuilder sb = new StringBuilder();
+                        sb.append("Order time was changed from ")
+                            .append(oldTime).append(" to ").append(newTime);
+                        mLogger.log(sb.toString());
                         return "Time was changed";
                     } else {
                         return "This time has already been selected";

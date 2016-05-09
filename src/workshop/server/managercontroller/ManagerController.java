@@ -38,6 +38,9 @@ public class ManagerController implements IManagerController {
                 changeTime(socketConnection, request.body.substring(0, request.body.indexOf(';')), request.body.substring(request.body.indexOf(';') + 1));
                 break;
             }
+            default: {
+                break;
+            }
         }
     }   
     

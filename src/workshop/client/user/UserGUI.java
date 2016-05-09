@@ -36,6 +36,7 @@ public class UserGUI implements IGUI {
     private static final String ACCEPT_TITLE = "Accept";
     private static final String REJECT_TITLE = "Reject";
     private static final String CANCEL_TITLE = "Cancel";
+    private static final String REFRESH_TITLE = "Refresh";
     private static final String BACK_TITLE = "Back";
     private static final String PHONE_TITLE = "Phone";
     private static final String DESCRIPTION_TITLE = "Description";
@@ -59,6 +60,7 @@ public class UserGUI implements IGUI {
     private final JButton mAcceptButton;
     private final JButton mCancelButton;
     private final JButton mBackButton;
+    private final JButton mRefreshButton;
     private final JButton mOrderAcceptButton;
     private final JButton mOrderRejectButton;
     private final JTable mSheduleTable;
@@ -145,6 +147,10 @@ public class UserGUI implements IGUI {
         mBackButton.setBounds(50, 20, 200, 30);
         mBackButton.addActionListener(mClickListener);
         
+        mRefreshButton = new JButton(REFRESH_TITLE);
+        mRefreshButton.setBounds(250, 20, 200, 30);
+        mRefreshButton.addActionListener(mClickListener);
+        
         mDescriptionLabel = new JLabel(DESCRIPTION_TITLE);
         mDescriptionLabel.setBounds(50, 60, 80, 20);
         
@@ -156,12 +162,14 @@ public class UserGUI implements IGUI {
         
         mDescription = new JTextArea();
         mDescription.setBounds(50, 80, 400, 50);
+        mDescription.setLineWrap(true);
         
         mStatusDescription = new JTextArea();
         mStatusDescription.setBounds(50, 320, 400, 50);
         
         mOrderDescription = new JTextArea();
         mOrderDescription.setBounds(50, 235, 400, 50);
+        mOrderDescription.setLineWrap(true);
         
         mSheduleLabel = new JLabel(SHEDULE_TITLE);
         mSheduleLabel.setBounds(50, 190, 80, 20);
@@ -264,6 +272,7 @@ public class UserGUI implements IGUI {
         mFrame.add(mStatusDescription);
         mFrame.add(mOrderAcceptButton);
         mFrame.add(mOrderRejectButton);
+        mFrame.add(mRefreshButton);
         mOrderAcceptButton.setEnabled(false);
         mOrderRejectButton.setEnabled(false);
         fillOrderTable();
@@ -298,6 +307,7 @@ public class UserGUI implements IGUI {
         mFrame.remove(mStatusDescription);
         mFrame.remove(mOrderAcceptButton);
         mFrame.remove(mOrderRejectButton);
+        mFrame.remove(mRefreshButton);
         mFrame.repaint();
     }
     
@@ -558,6 +568,8 @@ public class UserGUI implements IGUI {
                     JOptionPane.showMessageDialog(mFrame,
                                         "Please, select the order!");
                 }
+            } else if (e.getSource() == mRefreshButton) {
+                fillOrderTable();
             }
         }
     }
