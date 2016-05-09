@@ -17,7 +17,7 @@ public class Main {
             userGUI.show();
         } else {
             JOptionPane.showMessageDialog(null,
-                                "Can't conect to the server!");
+                                "Нет доступа к серверу!");
         }
     }
 }

@@ -29,23 +29,23 @@ public class UserGUI implements IGUI {
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
     
-    private static final String TITLE = "User client";
-    private static final String REGISTRATION_TITLE = "Registration";
-    private static final String LOGIN_TITLE = "Login";
-    private static final String LOGOUT_TITLE = "Logout";
-    private static final String ACCEPT_TITLE = "Accept";
-    private static final String REJECT_TITLE = "Reject";
-    private static final String CANCEL_TITLE = "Cancel";
-    private static final String REFRESH_TITLE = "Refresh";
-    private static final String BACK_TITLE = "Back";
-    private static final String PHONE_TITLE = "Phone";
-    private static final String DESCRIPTION_TITLE = "Description";
-    private static final String STATUS_DESCRIPTION_TITLE = "Status description";
-    private static final String SHEDULE_TITLE = "Shedule";
-    private static final String USERNAME_TITLE = "Username";
-    private static final String PASSWORD_TITLE = "Password";
-    private static final String SHOW_TITLE = "Show my orders";
-    private static final String SIGN_UP_TITLE = "Sign up for an appointment";
+    private static final String TITLE = "Клиент пользователя";
+    private static final String REGISTRATION_TITLE = "Регистрация";
+    private static final String LOGIN_TITLE = "Войти";
+    private static final String LOGOUT_TITLE = "Выйти";
+    private static final String ACCEPT_TITLE = "Принять";
+    private static final String REJECT_TITLE = "Отклонить";
+    private static final String CANCEL_TITLE = "Назад";
+    private static final String REFRESH_TITLE = "Обновить расписание";
+    private static final String BACK_TITLE = "Назад";
+    private static final String PHONE_TITLE = "Телефон";
+    private static final String DESCRIPTION_TITLE = "Описание заказа";
+    private static final String STATUS_DESCRIPTION_TITLE = "Описание статуса";
+    private static final String SHEDULE_TITLE = "Расписание";
+    private static final String USERNAME_TITLE = "Имя";
+    private static final String PASSWORD_TITLE = "Пароль";
+    private static final String SHOW_TITLE = "Показать мои заказы";
+    private static final String SIGN_UP_TITLE = "Записаться";
     
     private final JFrame mFrame;    
     private final JLabel mUsernameLabel;
@@ -152,13 +152,13 @@ public class UserGUI implements IGUI {
         mRefreshButton.addActionListener(mClickListener);
         
         mDescriptionLabel = new JLabel(DESCRIPTION_TITLE);
-        mDescriptionLabel.setBounds(50, 60, 80, 20);
+        mDescriptionLabel.setBounds(50, 60, 150, 20);
         
         mStatusDescriptionLabel = new JLabel(STATUS_DESCRIPTION_TITLE);
         mStatusDescriptionLabel.setBounds(50, 290, 200, 30);
         
         mOrderDescriptionLabel = new JLabel(DESCRIPTION_TITLE);
-        mOrderDescriptionLabel.setBounds(50, 210, 80, 20);
+        mOrderDescriptionLabel.setBounds(50, 210, 150, 20);
         
         mDescription = new JTextArea();
         mDescription.setBounds(50, 80, 400, 50);
@@ -345,7 +345,7 @@ public class UserGUI implements IGUI {
         String[] shedule = mController.getShedule();
         if (shedule == null) {
             JOptionPane.showMessageDialog(mFrame,
-                                "Can't get shedule!");
+                                "Не удалось получить расписание!");
         } else {
             int size = shedule.length;
             mBusyTimes = new Point[size];
@@ -387,7 +387,7 @@ public class UserGUI implements IGUI {
         String[] orders = mController.getOrders(mUserName);
         if (orders == null) {
             JOptionPane.showMessageDialog(mFrame,
-                                "Can't get orders!");
+                                "Не удалось получить заказы!");
         } else {
             mDescriptions.clear();
             mStatusDescription.setText("");
@@ -472,17 +472,17 @@ public class UserGUI implements IGUI {
                         if (mController.registration(mUsernameField.getText(),
                                 mPasswordField.getText())) {
                             JOptionPane.showMessageDialog(mFrame,
-                                "Registration completed!");
+                                "Регистрация завершена!");
                         } else {
                             JOptionPane.showMessageDialog(mFrame,
-                                "Registration failed!");
+                                "Имя уже занято!");
                         }
                     } else {
                         JOptionPane.showMessageDialog(mFrame,
-                                "Password must have 8 symbols at least!");
+                                "Пароль должен иметь не менее 8ми символов!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(mFrame, "Username is empty!");
+                    JOptionPane.showMessageDialog(mFrame, "Имя пользователя пустое!");
                 }
             } else if (e.getSource() == mLoginButton) {
                 if (!mUsernameField.getText().isEmpty()) {
@@ -491,18 +491,18 @@ public class UserGUI implements IGUI {
                                 mPasswordField.getText())) {
                             mUserName = mUsernameField.getText();
                             JOptionPane.showMessageDialog(mFrame,
-                                "Authorization completed!");
+                                "Авторизация завершена!");
                             showAuthorizationScreen();
                         } else {
                             JOptionPane.showMessageDialog(mFrame,
-                                "Authorization failed!");
+                                "Не верно имя пользователя или пароль!");
                         }
                     } else {
                         JOptionPane.showMessageDialog(mFrame,
-                                "Password must have 8 symbols at least!");
+                                "Пароль должен иметь не менее 8ми символов!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(mFrame, "Username is empty!");
+                    JOptionPane.showMessageDialog(mFrame, "Имя пользователя пустое!");
                 }
             }  else if (e.getSource() == mLogoutButton) {
                 showStartScreen();
@@ -526,27 +526,27 @@ public class UserGUI implements IGUI {
                                                 mPhone.getText(), time + "-" +
                                                         mSheduleTable.getColumnName(selectedCol))) {
                                     JOptionPane.showMessageDialog(mFrame,
-                                        "Order was made!");
+                                        "Заказ оформлен!");
                                     showSignUpScreen();
                                 } else {
                                     JOptionPane.showMessageDialog(mFrame,
-                                        "This time is already busy!");
+                                        "Это время уже заняли!");
                                     fillTable();
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(mFrame,
-                                    "This time is busy!");
+                                    "Это время занято!");
                             }
                         } else {
                             JOptionPane.showMessageDialog(mFrame,
-                                "You must select the time from shedule!");
+                                "Не выбрано время в расписании!");
                         }
                     } else {
                         JOptionPane.showMessageDialog(mFrame,
-                                "Phone number is empty!");
+                                "Телефонный номер не указан!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(mFrame, "Description is empty!");
+                    JOptionPane.showMessageDialog(mFrame, "Описание заказа пустое!");
                 }
             } else if (e.getSource() == mShowStatusButton) {
                 showOrderScreen();
@@ -558,7 +558,7 @@ public class UserGUI implements IGUI {
                     fillOrderTable();
                 } else {
                     JOptionPane.showMessageDialog(mFrame,
-                                        "Please, select the order!");
+                                        "Вы должны выбрать заказ!");
                 }
             } else if (e.getSource() == mOrderRejectButton) {
                 if (mOrderTable.getSelectedRow() >= 0 && mController.rejectOrder(mUserName, 
@@ -566,7 +566,7 @@ public class UserGUI implements IGUI {
                     fillOrderTable();
                 } else {
                     JOptionPane.showMessageDialog(mFrame,
-                                        "Please, select the order!");
+                                        "Вы должны выбрать заказ!");
                 }
             } else if (e.getSource() == mRefreshButton) {
                 fillOrderTable();

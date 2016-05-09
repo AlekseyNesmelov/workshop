@@ -27,11 +27,11 @@ public class ManagerGUI implements IGUI {
     private static final int WIDTH = 500;
     private static final int HEIGHT = 500;
 
-    private static final String TITLE = "Manager client";
-    private static final String EDIT_ORDER = "Edit order";
-    private static final String REFRESH = "Refresh";
-    private static final String DELETE = "Delete";
-    private static final String CHANGE_TIME = "Change time";
+    private static final String TITLE = "Клиент менеджера";
+    private static final String EDIT_ORDER = "Изменить статус";
+    private static final String REFRESH = "Обновить расписание";
+    private static final String DELETE = "Удалить заказ";
+    private static final String CHANGE_TIME = "Изменить время";
     
     public final JFrame mFrame;
     private final JButton mRefreshButton;
@@ -98,11 +98,11 @@ public class ManagerGUI implements IGUI {
                     String[] info = mController.getInfo(mSheduleTable.getModel().getValueAt(row, col) +
                             "-" + mSheduleTable.getColumnName(col)).split(";");
                     if(info.length > 1) {
-                        info[0] = "<html>Client: " + info[0];
-                        info[1] = "<br>Description: " + info[1];
-                        info[2] = "<br>Status: " + info[2];
-                        info[3] = "<br>Status description: " + info[3];
-                        info[4] = "<br>Phone: " + info[4] + "</html>";
+                        info[0] = "<html>Имя клиента: " + info[0];
+                        info[1] = "<br>Описание заказа: " + info[1];
+                        info[2] = "<br>Статус заказа: " + info[2];
+                        info[3] = "<br>Описание статуса: " + info[3];
+                        info[4] = "<br>Телефон: " + info[4] + "</html>";
                     }
                     String infoResult = Arrays.toString(info);
                     infoResult = infoResult.substring(1, infoResult.length() - 1);
@@ -114,11 +114,12 @@ public class ManagerGUI implements IGUI {
                                     + "-" + mSheduleTable.getColumnName(col);
                             String result = mController.changeTime(oldTime, newTime);
                             isTimeChanging = false;
-                            mChangeTimeButton.setText("Change time");
+                            mChangeTimeButton.setText("Изменить время");
                             fillTable();
                             JOptionPane.showMessageDialog(mFrame, result);
                         } else {
-                            JOptionPane.showMessageDialog(mFrame, "You should select new time after today");
+                            JOptionPane.showMessageDialog(mFrame, 
+                                    "Вы должны выбрать незанятое время!");
                         }
                     }
                 }
@@ -140,11 +141,11 @@ public class ManagerGUI implements IGUI {
                                                  Constants.STATUS_REPAIRS_COMPLETED});
         mStatusEditList.setBounds(25, 25, 200, 75);
         
-        mStatusOkButton = new JButton("Ok");
+        mStatusOkButton = new JButton("ОК");
         mStatusOkButton.setBounds(25, 175, 100, 25);
         mStatusOkButton.addActionListener(mClickListener);
         
-        mStatusCancelButton = new JButton("Cancel");
+        mStatusCancelButton = new JButton("Отменить");
         mStatusCancelButton.setBounds(125, 175, 100, 25);
         mStatusCancelButton.addActionListener(mClickListener);
         
@@ -219,7 +220,7 @@ public class ManagerGUI implements IGUI {
         String[] shedule = mController.getShedule();
         if (shedule == null) {
             JOptionPane.showMessageDialog(mFrame,
-                    "Can't get shedule!");
+                    "Не удалось получить расписание.");
         } else {
             int size = shedule.length;
             Point[] filledCells = new Point[size];
@@ -305,13 +306,13 @@ public class ManagerGUI implements IGUI {
             if (e.getSource() == mEditButton) {
                 if(mSheduleTable.getSelectedColumn() != -1 && mSheduleTable.getSelectedRow() != -1)
                     showEditStatusScreen();
-                else JOptionPane.showMessageDialog(mFrame, "Select a cell in the shedule table first!!!");
+                else JOptionPane.showMessageDialog(mFrame, "Не вбрано время в расписании.");
             }
             if(e.getSource() == mStatusCancelButton)
                 mStatusEditFrame.setVisible(false);
             if(e.getSource() == mStatusOkButton) {
                 if(mStatusEditList.getSelectedValue() == null)
-                    JOptionPane.showMessageDialog(mStatusEditFrame, "Select a new status first!!!");
+                    JOptionPane.showMessageDialog(mStatusEditFrame, "Не выбран статус заказа");
                 else {
                     mStatusEditFrame.setVisible(false);
                     mInfoLabel.setText("");
@@ -322,9 +323,9 @@ public class ManagerGUI implements IGUI {
             }
             if(e.getSource() == mDeleteButton) {
                 if(mSheduleTable.getSelectedColumn() == -1 || mSheduleTable.getSelectedRow() == -1)
-                    JOptionPane.showMessageDialog(mStatusEditFrame, "Select a cell in the shedule table first!!!");
+                    JOptionPane.showMessageDialog(mStatusEditFrame, "Не выбрано время в расписании");
                 else {
-                    int confirm = JOptionPane.showConfirmDialog(mFrame, "Are you sure?", "", JOptionPane.YES_NO_OPTION);
+                    int confirm = JOptionPane.showConfirmDialog(mFrame, "Вы уверены?", "", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         String result = mController.deleteRecord(mSheduleTable.getModel().getValueAt(mSheduleTable.getSelectedRow(), mSheduleTable.getSelectedColumn())
                                 + "-" + mSheduleTable.getColumnName(mSheduleTable.getSelectedColumn()));
@@ -336,16 +337,16 @@ public class ManagerGUI implements IGUI {
             if (e.getSource() == mChangeTimeButton) {
                 if (!isTimeChanging) {
                     if (mSheduleTable.getSelectedColumn() == -1 || mSheduleTable.getSelectedRow() == -1) {
-                        JOptionPane.showMessageDialog(mStatusEditFrame, "Select a cell in the shedule table first!!!");
+                        JOptionPane.showMessageDialog(mStatusEditFrame, "Не выврано время в расписании.");
                     } else {
                         isTimeChanging = true;
-                        mChangeTimeButton.setText("Cancel time changing");
+                        mChangeTimeButton.setText("Отменить смену времени");
                         oldTime = mSheduleTable.getModel().getValueAt(mSheduleTable.getSelectedRow(), mSheduleTable.getSelectedColumn())
                                 + "-" + mSheduleTable.getColumnName(mSheduleTable.getSelectedColumn());
                     }
                 } else {
                     isTimeChanging = false;
-                    mChangeTimeButton.setText("Change time");
+                    mChangeTimeButton.setText("Сменить время");
                 }
             }
             if (e.getSource() == mRefreshButton) {

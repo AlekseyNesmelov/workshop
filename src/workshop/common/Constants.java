@@ -18,19 +18,19 @@ public class Constants {
     public static final String GET_INFO = "get info";
     public static final String GET_LOG = "get log"; 
     public static final String CLEAR_LOG = "clear log";
+    public static final String SET_STATUS = "set status";
+    public static final String DELETE_RECORD = "delete record";
+    public static final String CHANGE_TIME = "change time";
     
     
     public static final String FAIL = "fail";
     public static final String SUCCESS = "success";
     public static final String CONNECTION_REFUSED = "connection refused";
     
-    public static final String STATUS_WAIT_FOR_CAR = "wait for car";
-    public static final String STATUS_NEED_FOR_DETAILS = "need for details";
-    public static final String STATUS_IN_WORK = "in work";
-    public static final String STATUS_USER_DENIED = "denied";
-    public static final String STATUS_USER_AGREE = "agree";
-    public static final String STATUS_REPAIRS_COMPLETED = "repairs completed";
-    public static final String SET_STATUS = "set status";
-    public static final String DELETE_RECORD = "delete record";
-    public static final String CHANGE_TIME = "change time";
+    public static final String STATUS_WAIT_FOR_CAR = "Ожидание автомобиля";
+    public static final String STATUS_NEED_FOR_DETAILS = "Нужны детали";
+    public static final String STATUS_IN_WORK = "В работе";
+    public static final String STATUS_USER_DENIED = "Отказ клиента";
+    public static final String STATUS_USER_AGREE = "Согласие клиента";
+    public static final String STATUS_REPAIRS_COMPLETED = "Ремонт завершен";
 }

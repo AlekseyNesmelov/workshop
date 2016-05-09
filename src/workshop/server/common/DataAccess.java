@@ -53,7 +53,7 @@ public class DataAccess implements IDataAccess {
                     query = "INSERT INTO users (username, password) \n" +
                    " VALUES ('" + username + "', '" + password + "');";
                     statement.executeUpdate(query);
-                    mLogger.log("New user was added: " + username);
+                    mLogger.log("Добавлен новый пользователь: " + username);
                     return true;
                 }
             } catch (SQLException e) {
@@ -123,10 +123,10 @@ public class DataAccess implements IDataAccess {
                         Constants.STATUS_WAIT_FOR_CAR + "', '" + phone + "');";
                 statement.executeUpdate(query);
                 StringBuilder sb = new StringBuilder();
-                sb.append("New order was made by ").append(username).append(".")
-                        .append("Time: ").append(time).append(".")
-                        .append("Phone: ").append(phone).append(".")
-                        .append("Description: ").append(description);
+                sb.append("Был сделан новый заказ пользователем ").append(username).append(".")
+                        .append(" Время заказа: ").append(time).append(".")
+                        .append(" Телефон: ").append(phone).append(".")
+                        .append(" Описание: ").append(description);
                 mLogger.log(sb.toString());
                 return true;
             } catch (SQLException e) {
@@ -176,8 +176,8 @@ public class DataAccess implements IDataAccess {
                         + "AND time='" + time + "';";  
                 statement.executeUpdate(query);
                 StringBuilder sb = new StringBuilder();
-                sb.append("User ").append(username).append(" accepted agreement.")
-                        .append("Time of order: ").append(time).append(".");
+                sb.append("Пользователь ").append(username).append(" принял соглашение.")
+                        .append("Время заказа: ").append(time).append(".");
                 mLogger.log(sb.toString());
                 return true;  
             } catch (SQLException e) {  
@@ -201,8 +201,8 @@ public class DataAccess implements IDataAccess {
                         + "AND time='" + time + "';";  
                 statement.executeUpdate(query);
                 StringBuilder sb = new StringBuilder();
-                sb.append("User ").append(username).append(" rejected agreement.")
-                    .append("Time of order: ").append(time).append(".");
+                sb.append("Пользователь ").append(username).append(" отклонил соглашение.")
+                    .append("Время заказа: ").append(time).append(".");
                 mLogger.log(sb.toString());
                 return true;  
             } catch (SQLException e) {  
@@ -228,12 +228,13 @@ public class DataAccess implements IDataAccess {
                     resultSet.next();
                     result = resultSet.getString(1) + ";" + result;
                     return result;
+                } else {
+                    return "Время не занято";
                 }
-                else return "Nothing here";
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
-            return "Test Info";
+            return "Ошибка";
         }
     }
 
@@ -249,18 +250,18 @@ public class DataAccess implements IDataAccess {
                     statement = mConnection.createStatement();
                     statement.executeUpdate(query);
                     StringBuilder sb = new StringBuilder();
-                    sb.append("Order status was changed.")
-                        .append("Time of order: ").append(time).append(". ")
-                            .append("Status description: ").append(statusDescription);
+                    sb.append("Статус заказа был изменен.")
+                        .append(" Время заказа: ").append(time).append(". ")
+                            .append(" Описание статуса: ").append(statusDescription);
                     mLogger.log(sb.toString());
-                    return "Status has been changed";
+                    return "Статус был изменен";
                 } else {
-                    return "No record this time";
+                    return "Нет заказов в это время";
                 }
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
-            return "Test Info";
+            return "Ошибка";
         }
     }
 
@@ -276,17 +277,17 @@ public class DataAccess implements IDataAccess {
                     statement = mConnection.createStatement();
                     statement.executeUpdate(query);
                     StringBuilder sb = new StringBuilder();
-                    sb.append("Order was deleted.")
-                        .append("Time of order: ").append(time).append(". ");
+                    sb.append("Заказ был удален.")
+                        .append(" Время заказа: ").append(time).append(". ");
                     mLogger.log(sb.toString());
-                    return "Record was deleted";
+                    return "Заказ был удален";
                 } else {
-                    return "No record this time";
+                    return "Нет заказов в это время";
                 }
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
-            return "Test Info";
+            return "Ошибка";
         }
     }
 
@@ -306,19 +307,19 @@ public class DataAccess implements IDataAccess {
                         statement = mConnection.createStatement();
                         statement.executeUpdate(query);
                         StringBuilder sb = new StringBuilder();
-                        sb.append("Order time was changed from ")
-                            .append(oldTime).append(" to ").append(newTime);
+                        sb.append("Время заказа было изменено с ")
+                            .append(oldTime).append(" на ").append(newTime);
                         mLogger.log(sb.toString());
-                        return "Time was changed";
+                        return "Время заказа изменено";
                     } else {
-                        return "This time has already been selected";
+                        return "Это время уже занято";
                     }
                 } else
-                    return "No record this time";
+                    return "Нет заказов в это время";
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
-            return "Test Info";
+            return "Ошибка";
         }
     }
 }

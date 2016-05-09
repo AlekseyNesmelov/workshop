@@ -6,7 +6,6 @@ import workshop.common.ISocketConnection;
 import workshop.common.Request;
 import workshop.common.SocketConnection;
 import workshop.server.headcontroller.HeadController;
-import workshop.server.headcontroller.IHeadController;
 import workshop.server.managercontroller.IManagerController;
 import workshop.server.managercontroller.ManagerController;
 import workshop.server.usercontroller.IUserController;

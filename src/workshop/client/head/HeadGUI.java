@@ -8,8 +8,8 @@ import javax.swing.JTextArea;
 import workshop.client.manager.ManagerGUI;
 
 public class HeadGUI extends ManagerGUI {
-    private static final String TITLE = "Head client";
-    private static final String SHOW_LOG_TITLE = "Show log";
+    private static final String TITLE = "Клиент начальника";
+    private static final String SHOW_LOG_TITLE = "Показать журнал";
 
     private final JButton mShowLogButton;
     private final JTextArea mLogArea;
@@ -52,7 +52,6 @@ public class HeadGUI extends ManagerGUI {
     
     public void showLogScreeen() {
         mFrame.add(mShowLogButton);
-       // mFrame.add(mLogArea);
         mFrame.add(mScroll);
     }
 }
