@@ -2,13 +2,13 @@ package workshop.client.user;
 
 import workshop.common.ISocketConnection;
 
-public class Controller implements IController {
+public class UController implements IUController {
     private final ISocketConnection mSocketConnection;
     private final IRegistrationSystem mRegistrationSystem;
     private final IAuthorizationSystem mAuthorizationSystem;
     private final IOrderSystem mOrderSystem;
 
-    public Controller(final ISocketConnection socketConnection) {
+    public UController(final ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;
         mRegistrationSystem = new RegistrationSystem(mSocketConnection);
         mAuthorizationSystem = new AuthorizationSystem(mSocketConnection);

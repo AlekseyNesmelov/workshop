@@ -1,6 +1,6 @@
 package workshop.client.manager;
 
-import workshop.common.SheduleTableRenderer;
+import workshop.client.common.SheduleTableRenderer;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,12 +50,12 @@ public class ManagerGUI implements IGUI {
 
     private final ClickListener mClickListener;
 
-    private final IController mController;
+    private final IMController mController;
     
     private boolean isTimeChanging = false;
     private String oldTime = "";
     
-    public ManagerGUI(IController controller) {
+    public ManagerGUI(IMController controller) {
         mController = controller;
 
         mFrame = new JFrame(TITLE);

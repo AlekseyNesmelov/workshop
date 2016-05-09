@@ -10,8 +10,10 @@ import workshop.client.manager.ManagerGUI;
 public class HeadGUI extends ManagerGUI {
     private static final String TITLE = "Клиент начальника";
     private static final String SHOW_LOG_TITLE = "Показать журнал";
+    private static final String CLEAR_LOG_TITLE = "Очистить журнал";
 
     private final JButton mShowLogButton;
+    private final JButton mClearLogButton;
     private final JTextArea mLogArea;
     final JScrollPane mScroll;
     private final ClickListener mClickListener = new ClickListener();
@@ -26,6 +28,10 @@ public class HeadGUI extends ManagerGUI {
         mShowLogButton.setBounds(470, 50, 200, 30);
         mShowLogButton.addActionListener(mClickListener);
         
+        mClearLogButton = new JButton(CLEAR_LOG_TITLE);
+        mClearLogButton.setBounds(670, 50, 200, 30);
+        mClearLogButton.addActionListener(mClickListener);
+        
         mLogArea = new JTextArea();
         mLogArea.setBounds(470, 85, 400, 150);
         
@@ -38,7 +44,10 @@ public class HeadGUI extends ManagerGUI {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == mShowLogButton) {
                 mLogArea.setText(mHController.getLog());
-            }
+            } else if (e.getSource() == mClearLogButton) {
+                mHController.clearLog();
+                mLogArea.setText(mHController.getLog());
+            } 
         }
     }
     
@@ -52,6 +61,7 @@ public class HeadGUI extends ManagerGUI {
     
     public void showLogScreeen() {
         mFrame.add(mShowLogButton);
+        mFrame.add(mClearLogButton);
         mFrame.add(mScroll);
     }
 }

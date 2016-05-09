@@ -1,6 +1,6 @@
 package workshop.client.user;
 
-public interface IController {
+public interface IUController {
     /**
      * Registration of user with current login and password.
      * @param username is user's username.

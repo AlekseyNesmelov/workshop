@@ -1,1 +1,1 @@
-java -cp Workshop.jar workshop.server.common.Main
+java -cp Workshop.jar workshop.server.common.ServerMain

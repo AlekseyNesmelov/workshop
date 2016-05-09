@@ -1,4 +1,4 @@
-package workshop.common;
+package workshop.client.common;
 
 import java.awt.Color;
 import java.awt.Component;
