@@ -4,11 +4,11 @@ import workshop.common.Constants;
 import workshop.common.ISocketConnection;
 import workshop.common.Request;
 
-public class Controller implements IController {
+public class MController implements IMController {
 
     public final ISocketConnection mSocketConnection;
 
-    public Controller(ISocketConnection socketConnection) {
+    public MController(ISocketConnection socketConnection) {
         mSocketConnection = socketConnection;
     }
 

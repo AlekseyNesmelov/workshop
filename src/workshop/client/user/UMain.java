@@ -5,14 +5,14 @@ import workshop.client.common.IGUI;
 import workshop.common.ISocketConnection;
 import workshop.common.SocketConnection;
 
-public class Main {
+public class UMain {
     private static final String IP = "localhost";
     private static final int PORT = 8888;
     
     public static void main(String[] args) {
         final ISocketConnection socketConnection = new SocketConnection();
         if (socketConnection.connect(IP, PORT)) {
-            final IController controller = new Controller(socketConnection);
+            final IUController controller = new UController(socketConnection);
             IGUI userGUI = new UserGUI(controller);
             userGUI.show();
         } else {

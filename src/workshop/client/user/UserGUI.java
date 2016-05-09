@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import workshop.client.common.IGUI;
 import workshop.common.Constants;
-import workshop.common.SheduleTableRenderer;
+import workshop.client.common.SheduleTableRenderer;
 
 public class UserGUI implements IGUI {
     private static final int WIDTH = 500;
@@ -79,13 +79,13 @@ public class UserGUI implements IGUI {
     
     private final ClickListener mClickListener;
     
-    private final IController mController;
+    private final IUController mController;
     
     private String mUserName = null;
     private Point[] mBusyTimes = null;
     private final LinkedList<Pair> mDescriptions = new LinkedList();
     
-    public UserGUI(final IController controller) {
+    public UserGUI(final IUController controller) {
         mController = controller;
 
         mFrame = new JFrame(TITLE);

@@ -5,7 +5,7 @@ import workshop.client.common.IGUI;
 import workshop.common.ISocketConnection;
 import workshop.common.SocketConnection;
 
-public class Main {
+public class MMain {
 
     private static final String IP = "localhost";
     private static final int PORT = 8888;
@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         ISocketConnection socketConnection = new SocketConnection();
         if (socketConnection.connect(IP, PORT)) {
-            IController controller = new Controller(socketConnection);
+            IMController controller = new MController(socketConnection);
             IGUI managerGUI = new ManagerGUI(controller);
             managerGUI.show();
         } else {

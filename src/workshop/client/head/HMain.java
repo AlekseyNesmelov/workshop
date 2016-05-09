@@ -5,7 +5,7 @@ import workshop.client.common.IGUI;
 import workshop.common.ISocketConnection;
 import workshop.common.SocketConnection;
 
-public class Main {
+public class HMain {
 
     private static final String IP = "localhost";
     private static final int PORT = 8888;

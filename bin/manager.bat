@@ -1,1 +1,1 @@
-java -cp Workshop.jar workshop.client.manager.Main
+java -cp Workshop.jar workshop.client.manager.MMain

@@ -1,6 +1,6 @@
 package workshop.client.manager;
 
-public interface IController {
+public interface IMController {
     
     /**
      * Gets shedule.

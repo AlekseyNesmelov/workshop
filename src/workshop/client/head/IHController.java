@@ -6,4 +6,6 @@ public interface IHController {
      * @return log.
      */
     public String getLog();
+    
+    public boolean clearLog();
 }

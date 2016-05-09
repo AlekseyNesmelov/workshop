@@ -1,6 +1,6 @@
 package workshop.server.common;
 
-public class Main {
+public class ServerMain {
     public static void main(String[] args) {
 	final IDataAccess dataAccess = DataAccess.getInstance(); 
         if (dataAccess.connect()) {
