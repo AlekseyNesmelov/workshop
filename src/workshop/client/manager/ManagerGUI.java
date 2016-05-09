@@ -11,13 +11,17 @@ import java.util.Calendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import workshop.client.common.IGUI;
+import workshop.common.Constants;
 
 public class ManagerGUI implements IGUI {
 
@@ -27,6 +31,8 @@ public class ManagerGUI implements IGUI {
     private static final String TITLE = "Manager client";
     private static final String EDIT_ORDER = "Edit order";
     private static final String REFRESH = "Refresh";
+    private static final String DELETE = "Delete";
+    private static final String CHANGE_TIME = "Change time";
     
     public final JFrame mFrame;
     private final JButton mRefreshButton;
@@ -34,11 +40,22 @@ public class ManagerGUI implements IGUI {
     private final JTable mSheduleTable;
     private final JScrollPane mScrollPane;
     private final JLabel mInfoLabel;
+    private final JButton mDeleteButton;
+    private final JButton mChangeTimeButton;
+    
+    public final JFrame mStatusEditFrame;
+    private final JList mStatusEditList;
+    private final JButton mStatusOkButton;
+    private final JButton mStatusCancelButton;
+    private final JTextArea mStatusDescriptionText;
 
     private final ClickListener mClickListener;
 
     private final IController mController;
-
+    
+    private boolean isTimeChanging = false;
+    private String oldTime = "";
+    
     public ManagerGUI(IController controller) {
         mController = controller;
 
@@ -57,6 +74,14 @@ public class ManagerGUI implements IGUI {
         mRefreshButton.setBounds(250, 200, 200, 30);
         mRefreshButton.addActionListener(mClickListener);
 
+        mDeleteButton = new JButton(DELETE);
+        mDeleteButton.setBounds(50, 230, 200, 30);
+        mDeleteButton.addActionListener(mClickListener);
+
+        mChangeTimeButton = new JButton(CHANGE_TIME);
+        mChangeTimeButton.setBounds(250, 230, 200, 30);
+        mChangeTimeButton.addActionListener(mClickListener);
+
         mSheduleTable = new JTable();
         mSheduleTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         mSheduleTable.setBounds(50, 50, 400, 150);
@@ -70,6 +95,7 @@ public class ManagerGUI implements IGUI {
                 int row = mSheduleTable.rowAtPoint(evt.getPoint());
                 int col = mSheduleTable.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
+                    if(!isTimeChanging) {
                     String[] info = mController.getInfo(mSheduleTable.getModel().getValueAt(row, col) +
                             "-" + mSheduleTable.getColumnName(col)).split(";");
                     if(info.length > 1) {
@@ -83,6 +109,19 @@ public class ManagerGUI implements IGUI {
                     infoResult = infoResult.substring(1, infoResult.length() - 1);
                     mInfoLabel.setText(infoResult);
                     mFrame.repaint();
+                    } else {
+                        if (col > 9) {
+                            String newTime = mSheduleTable.getModel().getValueAt(row, col)
+                                    + "-" + mSheduleTable.getColumnName(col);
+                            String result = mController.changeTime(oldTime, newTime);
+                            isTimeChanging = false;
+                            mChangeTimeButton.setText("Change time");
+                            fillTable();
+                            JOptionPane.showMessageDialog(mFrame, result);
+                        } else {
+                            JOptionPane.showMessageDialog(mFrame, "You should select new time after today");
+                        }
+                    }
                 }
             }
         });
@@ -90,6 +129,28 @@ public class ManagerGUI implements IGUI {
         mScrollPane = new JScrollPane(mSheduleTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         mScrollPane.setBounds(50, 50, 400, 150);
+
+        mStatusEditFrame = new JFrame(TITLE);
+        mStatusEditFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        mStatusEditFrame.setSize(250, 250);
+        mStatusEditFrame.setLayout(null);
+        
+        mStatusEditList = new JList(new String[]{Constants.STATUS_WAIT_FOR_CAR,
+                                                 Constants.STATUS_IN_WORK,
+                                                 Constants.STATUS_NEED_FOR_DETAILS,
+                                                 Constants.STATUS_REPAIRS_COMPLETED});
+        mStatusEditList.setBounds(25, 25, 200, 75);
+        
+        mStatusOkButton = new JButton("Ok");
+        mStatusOkButton.setBounds(25, 175, 100, 25);
+        mStatusOkButton.addActionListener(mClickListener);
+        
+        mStatusCancelButton = new JButton("Cancel");
+        mStatusCancelButton.setBounds(125, 175, 100, 25);
+        mStatusCancelButton.addActionListener(mClickListener);
+        
+        mStatusDescriptionText = new JTextArea("");
+        mStatusDescriptionText.setBounds(25, 110, 200, 50);
     }
 
     @Override
@@ -102,10 +163,20 @@ public class ManagerGUI implements IGUI {
         clear();
         mFrame.add(mRefreshButton);
         mFrame.add(mEditButton);
+        mFrame.add(mDeleteButton);
+        mFrame.add(mChangeTimeButton);
         mFrame.add(mScrollPane);
         mFrame.add(mInfoLabel);
         fillTable();
         mFrame.repaint();
+    }
+    
+    public void showEditStatusScreen() {
+        mStatusEditFrame.setVisible(true);
+        mStatusEditFrame.add(mStatusEditList);
+        mStatusEditFrame.add(mStatusOkButton);
+        mStatusEditFrame.add(mStatusCancelButton);
+        mStatusEditFrame.add(mStatusDescriptionText);
     }
     
     public void clear() {
@@ -124,9 +195,10 @@ public class ManagerGUI implements IGUI {
         clearTable();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -10);
         String currentDate = dateFormat.format(calendar.getTime());
-        Object[] columns = new Object[30];
-        for (int i = 0; i < 30; i++) {
+        Object[] columns = new Object[40];
+        for (int i = 0; i < 40; i++) {
             columns[i] = (String) currentDate;
             calendar.add(Calendar.DATE, 1);
             currentDate = dateFormat.format(calendar.getTime());
@@ -232,6 +304,50 @@ public class ManagerGUI implements IGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == mEditButton) {
+                if(mSheduleTable.getSelectedColumn() != -1 && mSheduleTable.getSelectedRow() != -1)
+                    showEditStatusScreen();
+                else JOptionPane.showMessageDialog(mFrame, "Select a cell in the shedule table first!!!");
+            }
+            if(e.getSource() == mStatusCancelButton)
+                mStatusEditFrame.setVisible(false);
+            if(e.getSource() == mStatusOkButton) {
+                if(mStatusEditList.getSelectedValue() == null)
+                    JOptionPane.showMessageDialog(mStatusEditFrame, "Select a new status first!!!");
+                else {
+                    mStatusEditFrame.setVisible(false);
+                    mInfoLabel.setText("");
+                    String result = mController.editStatus(mSheduleTable.getModel().getValueAt(mSheduleTable.getSelectedRow(), mSheduleTable.getSelectedColumn()) +
+                            "-" + mSheduleTable.getColumnName(mSheduleTable.getSelectedColumn()), mStatusEditList.getSelectedValue().toString(), mStatusDescriptionText.getText());
+                    JOptionPane.showMessageDialog(mFrame, result);
+                }
+            }
+            if(e.getSource() == mDeleteButton) {
+                if(mSheduleTable.getSelectedColumn() == -1 || mSheduleTable.getSelectedRow() == -1)
+                    JOptionPane.showMessageDialog(mStatusEditFrame, "Select a cell in the shedule table first!!!");
+                else {
+                    int confirm = JOptionPane.showConfirmDialog(mFrame, "Are you sure?", "", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        String result = mController.deleteRecord(mSheduleTable.getModel().getValueAt(mSheduleTable.getSelectedRow(), mSheduleTable.getSelectedColumn())
+                                + "-" + mSheduleTable.getColumnName(mSheduleTable.getSelectedColumn()));
+                        fillTable();
+                        JOptionPane.showMessageDialog(mFrame, result);
+                    }
+                }
+            }
+            if (e.getSource() == mChangeTimeButton) {
+                if (!isTimeChanging) {
+                    if (mSheduleTable.getSelectedColumn() == -1 || mSheduleTable.getSelectedRow() == -1) {
+                        JOptionPane.showMessageDialog(mStatusEditFrame, "Select a cell in the shedule table first!!!");
+                    } else {
+                        isTimeChanging = true;
+                        mChangeTimeButton.setText("Cancel time changing");
+                        oldTime = mSheduleTable.getModel().getValueAt(mSheduleTable.getSelectedRow(), mSheduleTable.getSelectedColumn())
+                                + "-" + mSheduleTable.getColumnName(mSheduleTable.getSelectedColumn());
+                    }
+                } else {
+                    isTimeChanging = false;
+                    mChangeTimeButton.setText("Change time");
+                }
             }
             if (e.getSource() == mRefreshButton) {
                 fillTable();

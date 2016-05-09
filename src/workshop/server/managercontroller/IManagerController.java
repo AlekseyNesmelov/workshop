@@ -19,4 +19,10 @@ public interface IManagerController {
     public void getShedule(ISocketConnection socketConnection);
     
     public void getInfo(ISocketConnection socketConnection, String time);
+    
+    public void setStatus(ISocketConnection socketConnection, String time, String status, String statusDescription);
+    
+    public void deleteRecord(ISocketConnection socketConnection, String time);
+    
+    public void changeTime(ISocketConnection socketConnection, String oldTime, String newTime);
 }

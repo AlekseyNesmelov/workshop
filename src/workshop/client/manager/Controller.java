@@ -39,4 +39,34 @@ public class Controller implements IController {
         }
         return response.body;
     }
+
+    @Override
+    public String editStatus(String time, String newStatus, String statusDescription) {
+        Request request = new Request();
+        request.senderType = Constants.MANAGER;
+        request.requestType = Constants.SET_STATUS;
+        request.body = time + ";" + newStatus + "+" + statusDescription;
+        Request response = mSocketConnection.sendAndGetResponse(request);
+        return response.body;
+    }
+
+    @Override
+    public String deleteRecord(String time) {
+        Request request = new Request();
+        request.senderType = Constants.MANAGER;
+        request.requestType = Constants.DELETE_RECORD;
+        request.body = time;
+        Request response = mSocketConnection.sendAndGetResponse(request);
+        return response.body;
+    }
+
+    @Override
+    public String changeTime(String oldTime, String newTime) {
+        Request request = new Request();
+        request.senderType = Constants.MANAGER;
+        request.requestType = Constants.CHANGE_TIME;
+        request.body = oldTime + ";" + newTime;
+        Request response = mSocketConnection.sendAndGetResponse(request);
+        return response.body;
+    }
 }

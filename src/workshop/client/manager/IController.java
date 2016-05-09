@@ -9,4 +9,10 @@ public interface IController {
     public String[] getShedule();
 
     public String getInfo(String time);
+
+    public String editStatus(String time, String newStatus, String statusDescription);
+
+    public String deleteRecord(String time);
+
+    public String changeTime(String oldTime, String newTime);
 }

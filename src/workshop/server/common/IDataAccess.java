@@ -66,7 +66,13 @@ public interface IDataAccess {
      * @param time is time from shedule.  
      * @return true if operation was made successfully.   
      */  
-    public boolean rejectOrder(final String username, final String time);  
-	
-	public String getInfo(final String time);
+    public boolean rejectOrder(final String username, final String time);
+    
+    public String getInfo(final String time);
+
+    public String setStatus(String time, String status, String statusDescription);
+
+    public String deleteRecord(String time);
+
+    public String changeTime(String oldTime, String newTime);
 }

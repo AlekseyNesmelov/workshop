@@ -30,4 +30,7 @@ public class Constants {
     public static final String STATUS_USER_DENIED = "denied";
     public static final String STATUS_USER_AGREE = "agree";
     public static final String STATUS_REPAIRS_COMPLETED = "repairs completed";
+    public static final String SET_STATUS = "set status";
+    public static final String DELETE_RECORD = "delete record";
+    public static final String CHANGE_TIME = "change time";
 }

@@ -8,7 +8,7 @@ import java.sql.Statement;
 import workshop.common.Constants;
 
 public class DataAccess implements IDataAccess {
-    private static final IDataAccess instance_ = new DataAccess(); 
+    private static final IDataAccess instance_ = new DataAccess();
     private Connection mConnection;
     private final ILogger mLogger = Logger.getInstance();
     private final Object mLock = new Object();
@@ -230,6 +230,76 @@ public class DataAccess implements IDataAccess {
                     return result;
                 }
                 else return "Nothing here";
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+            return "Test Info";
+        }
+    }
+
+    @Override
+    public String setStatus(String time, String status, String statusDescription) {
+        synchronized (mLock) {
+            try {
+                String query = "select * from orders WHERE time='" + time + "';";
+                Statement statement = mConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if(resultSet.next()) {
+                    query = "UPDATE orders SET status='" + status + "', statusdescription='" + statusDescription + "' WHERE time='" + time + "';";
+                    statement = mConnection.createStatement();
+                    statement.executeUpdate(query);
+                    return "Status has been changed";
+                }
+                else return "No record this time";
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+            return "Test Info";
+        }
+    }
+
+    @Override
+    public String deleteRecord(String time) {
+        synchronized (mLock) {
+            try {
+                String query = "select * from orders WHERE time='" + time + "';";
+                Statement statement = mConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if(resultSet.next()) {
+                    query = "delete from orders WHERE time='" + time + "';";
+                    statement = mConnection.createStatement();
+                    statement.executeUpdate(query);
+                    return "Record was deleted";
+                }
+                else return "No record this time";
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+            return "Test Info";
+        }
+    }
+
+    @Override
+    public String changeTime(String oldTime, String newTime) {
+        synchronized (mLock) {
+            try {
+                String query = "select * from orders WHERE time='" + oldTime + "';";
+                Statement statement = mConnection.createStatement();
+                ResultSet resultSet = statement.executeQuery(query);
+                if(resultSet.next()) {
+                    query = "select * from orders WHERE time='" + newTime + "';";
+                    statement = mConnection.createStatement();
+                    resultSet = statement.executeQuery(query);
+                    if (!resultSet.next()) {
+                        query = "UPDATE orders SET time='" + newTime + "' WHERE time='" + oldTime + "';";
+                        statement = mConnection.createStatement();
+                        statement.executeUpdate(query);
+                        return "Time was changed";
+                    } else {
+                        return "This time has already been selected";
+                    }
+                } else
+                    return "No record this time";
             } catch (SQLException e) {
                 System.out.println(e.toString());
             }
