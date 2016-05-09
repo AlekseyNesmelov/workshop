@@ -119,7 +119,7 @@ public class ManagerGUI implements IGUI {
                             JOptionPane.showMessageDialog(mFrame, result);
                         } else {
                             JOptionPane.showMessageDialog(mFrame, 
-                                    "Вы должны выбрать незанятое время!");
+                                    "Вы должны выбрать время, начиная с сегодняшнего!");
                         }
                     }
                 }
