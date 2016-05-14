@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
 import workshop.common.Constants;
 
 public class DataAccess implements IDataAccess {
@@ -17,6 +18,21 @@ public class DataAccess implements IDataAccess {
     
     public static IDataAccess getInstance() {
         return instance_;
+    }
+    
+    @Override
+    public boolean isConnectionClosed() {
+        try {
+            return mConnection.isClosed();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    @Override
+    public Connection getConnection() {
+        return mConnection;
     }
     
     @Override
