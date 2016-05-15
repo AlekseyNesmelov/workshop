@@ -306,7 +306,7 @@ public class ManagerGUI implements IGUI {
             if (e.getSource() == mEditButton) {
                 if(mSheduleTable.getSelectedColumn() != -1 && mSheduleTable.getSelectedRow() != -1)
                     showEditStatusScreen();
-                else JOptionPane.showMessageDialog(mFrame, "Не вбрано время в расписании.");
+                else JOptionPane.showMessageDialog(mFrame, "Не выбрано время в расписании.");
             }
             if(e.getSource() == mStatusCancelButton)
                 mStatusEditFrame.setVisible(false);
@@ -337,7 +337,7 @@ public class ManagerGUI implements IGUI {
             if (e.getSource() == mChangeTimeButton) {
                 if (!isTimeChanging) {
                     if (mSheduleTable.getSelectedColumn() == -1 || mSheduleTable.getSelectedRow() == -1) {
-                        JOptionPane.showMessageDialog(mStatusEditFrame, "Не выврано время в расписании.");
+                        JOptionPane.showMessageDialog(mStatusEditFrame, "Не выбрано время в расписании.");
                     } else {
                         isTimeChanging = true;
                         mChangeTimeButton.setText("Отменить смену времени");
