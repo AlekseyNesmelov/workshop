@@ -1,5 +1,7 @@
 package workshop.server.common;
 
+import java.sql.Connection;
+
 public interface IDataAccess {
     /**
      * Conects to the database.
@@ -11,6 +13,18 @@ public interface IDataAccess {
      * Disconects from database.
      */
     public void disconnect ();
+    
+    /**
+     * Check if connection is closed.
+     * @return true if connection is closed.
+     */
+    public boolean isConnectionClosed ();
+    
+    /**
+     * Get connection.
+     * @return connection.
+     */
+    public Connection getConnection ();
 
     /**
      * Adds user with current username and password.
