@@ -21,7 +21,7 @@ public class Logger implements ILogger {
         return instance_;
     }
     
-    private Logger(final String fileName) {
+    Logger(final String fileName) {
         mFileName = fileName;
 
         BufferedWriter writer = null;

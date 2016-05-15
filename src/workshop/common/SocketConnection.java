@@ -56,7 +56,7 @@ public class SocketConnection implements ISocketConnection{
     }
     
     private void close(final Closeable closeable) { 
-		if (closeable != null) {
+	if (closeable != null) {
             try {
                 closeable.close();
             } catch (IOException e) {
@@ -112,5 +112,10 @@ public class SocketConnection implements ISocketConnection{
             }
         }    
         return response;
+    }
+
+    @Override
+    public boolean isConnected() {
+        return mConnected;
     }
 }

@@ -42,4 +42,6 @@ public interface ISocketConnection {
      * @return response.
      */
     public Request getResponse();
+    
+    public boolean isConnected();
 }
